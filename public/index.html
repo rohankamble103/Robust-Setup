@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EC2 Instance Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #2980b9;
+        }
+        .info {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>EC2 Instance Information</h1>
+        <div class="info">
+            <div id="public-ip">Public IP: Loading...</div>
+            <div id="hostname">Hostname: Loading...</div>
+        </div>
+        <div class="error" id="error-message" style="display: none;">
+            Error fetching data! Ensure IMDSv2 is enabled.
+        </div>
+    </div>
+
+    <script>
+        // Function to fetch instance information from the backend API
+        async function fetchInstanceInfo() {
+            try {
+                const response = await fetch('/api/instance-info');
+                const data = await response.json();
+
+                // Update the UI with the fetched data
+                if (data.publicIp && data.hostname) {
+                    document.getElementById('public-ip').textContent = 'Public IP: ' + data.publicIp;
+                    document.getElementById('hostname').textContent = 'Hostname: ' + data.hostname;
+                } else {
+                    throw new Error('Missing data');
+                }
+            } catch (error) {
+                // Display error if fetching fails
+                document.getElementById('error-message').style.display = 'block';
+            }
+        }
+
+        // Call the function to fetch and display instance info
+        fetchInstanceInfo();
+    </script>
+
+</body>
+</html>
