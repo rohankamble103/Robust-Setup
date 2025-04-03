@@ -1,0 +1,15 @@
+{
+  "name": "robust-setup",
+  "version": "1.0.0",
+  "description": "I am creating this repository to help you understand how to set up Auto Scaling with Load Balancing and their important components. This guide will walk you through all the steps, including creating an EC2 instance, setting up load balancing, and configuring auto-scaling for your AWS environment.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {                                                                             "express": "^4.18.2",
+    "axios": "^1.6.7"                                                                         },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
